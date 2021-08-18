@@ -27,6 +27,21 @@
 .App-link {
   color: #61dafb;
 }
+.container{
+  margin:0
+}
+.inputContainer{
+  margin: auto;
+  width:40%;
+  display: flex;
+  align-content: space-between;
+}
+.inputContainer input[type="text"] {
+  margin-right: 10px;
+}
+.listItems {
+  list-style-type: none;
+}
 
 @keyframes App-logo-spin {
   from {

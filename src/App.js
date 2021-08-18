@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import InputCheck from './input';
+import List from './list';
+import { useState } from 'react';
 
 function App() {
+  const initialItems = sessionStorage.getItem("taskList") ? JSON.parse(sessionStorage.getItem("taskList")) : [];
+  const [items, setItems] = useState(initialItems);
+  
+  const addtask = (taskName) => {
+    const taskObj = {name:taskName, id:items.length}
+    const itemList = [...items, taskObj];
+    setItems(itemList);
+    sessionStorage.setItem("taskList", JSON.stringify(itemList))
+  }
+
+  const deleteTask = (id) => {
+    const itemsList = items.filter(x=> x.id != id);
+    setItems(itemsList);
+    sessionStorage.setItem("taskList", JSON.stringify(itemsList))
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <InputCheck addtask = {addtask}/>
+      <List listItems = {items} deleteTask ={deleteTask} />
     </div>
   );
 }
